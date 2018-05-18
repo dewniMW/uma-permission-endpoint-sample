@@ -1,0 +1,8 @@
+uma/permission/endpoint/sample/client/impl/PermissionClientImpl.class
+uma/permission/endpoint/sample/client/AbstractRestClient.class
+uma/permission/endpoint/sample/model/RequestPermission.class
+uma/permission/endpoint/sample/client/core/PermissionClientProxyPool.class
+uma/permission/endpoint/sample/controller/PermissionRequestServlet.class
+uma/permission/endpoint/sample/client/PermissionClient.class
+uma/permission/endpoint/sample/model/PermissionTicketResponse.class
+uma/permission/endpoint/sample/model/Permissions.class
