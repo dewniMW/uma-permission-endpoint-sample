@@ -1,13 +1,9 @@
 <%@ page import="uma.permission.endpoint.sample.model.RequestPermission" %>
 <%@ page import="uma.permission.endpoint.sample.model.PermissionTicketResponse" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%--
-  Created by IntelliJ IDEA.
-  User: isuri
-  Date: 5/3/18
-  Time: 8:51 AM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Enumeration" %>
+<%@ page import="uma.permission.endpoint.sample.model.ErrorResponse" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -27,8 +23,8 @@
             <td> <input type="text" name="resource_scopes" id="resource_scopes"></td>
         </tr>
         <tr>
-            <td><%--<input type="submit" value="Add more permissions" name="add_permission">--%></td>
-            <td><input type="submit" value="Send request" name="send_request"></td>
+            <td><input type="submit" value="Add more permissions" name="act"></td>
+            <td><input type="submit" value="Send request" name="act"></td>
         </tr>
     </table>
 </form>
@@ -39,9 +35,19 @@
         PermissionTicketResponse permissionTicketResponse = (PermissionTicketResponse) request.getAttribute("permissionRequest");
 
 %>
-<h3>Permission Endpoint response</h3>
+<h4>Permission ticket created successfully.</h4>
 <div>Permission ticket: <%= permissionTicketResponse.getTicket()%></div>
 
+<% } %>
+<br>
+<%
+    if (request.getAttribute("errorMessage") != null) {
+        ErrorResponse permissionTicketResponse = (ErrorResponse) request.getAttribute("errorMessage");
+
+%>
+<h4>Error in the request.</h4>
+<div>error: <%= permissionTicketResponse.getError()%></div>
+<div>error_description: <%= permissionTicketResponse.getErrorDescription()%></div>
 <% } %>
 
 

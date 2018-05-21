@@ -29,7 +29,6 @@ public class PermissionClientProxyPool {
         if(permissionClient == null){
             MultivaluedMap headers = new MultivaluedMapImpl();
             headers.add("Authorization", "Bearer b0e06b96-38eb-3b68-82eb-ff1cc805c3db");
-            //headers.add("Content-Type", "application/json");
             permissionClient = new PermissionClientImpl(targetBaseServiceURL,headers);
         }
         return permissionClient;

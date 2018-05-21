@@ -8,7 +8,6 @@ package uma.permission.endpoint.sample.client;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-import uma.permission.endpoint.sample.model.Permissions;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
@@ -42,15 +41,24 @@ public class AbstractRestClient {
         return target.request();
     }
 
-    public Response post(final String url, final Entity<?> entity) throws Exception {
+//    public Response post(final String url, final Entity<?> entity) throws Exception {
+//        Response response = createTarget(url).request().headers(headers).post(entity);
+//        /*if (!isSuccess(response)) {
+//            processException(response);
+//        }*/
+//        return response;
+//    }
+
+    public Response post(final String url, final Entity<?> entity) {
         Response response = createTarget(url).request().headers(headers).post(entity);
-        if (!isSuccess(response)) {
+        /*if (!isSuccess(response)) {
             processException(response);
-        }
+        }*/
         return response;
     }
 
-        public Response getJson(final String url) throws Exception {
+
+    public Response getJson(final String url) throws Exception {
 
         Response response = createTarget(url).request().accept(MediaType.APPLICATION_JSON_TYPE).get();
         if (!isSuccess(response)) {
@@ -66,7 +74,6 @@ public class AbstractRestClient {
      * @return true if server returns 200 as response code
      */
     public boolean isSuccess(final Response response) {
-        /*return response.getStatus() == Response.Status.OK.getStatusCode() || response.getStatus() == Response.Status.CREATED.getStatusCode();*/
         return response.getStatus() == Response.Status.CREATED.getStatusCode();
     }
 
