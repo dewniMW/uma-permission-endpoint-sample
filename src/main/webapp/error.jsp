@@ -1,4 +1,4 @@
-<%--
+<%@ page import="uma.permission.endpoint.sample.client.impl.PermissionClientImpl" %><%--
   Created by IntelliJ IDEA.
   User: dewni
   Date: 5/18/18
@@ -12,12 +12,12 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Exception</title>
+    <title>Error</title>
 </head>
 <body>
-    <h1>Exception</h1>
-    <h2>Internal Server Error</h2>
-    <h2>Http status code: 500</h2>
+    <h1>Error</h1>
+    <%--<h2>Internal Server Error</h2>--%>
+    <h2>Http status code: <%= PermissionClientImpl.httpStatusCode %></h2>
     <%--<h2><%=exception %><br/> </h2>
     <h2><%=exception.getMessage() %><br/> </h2>--%>
 </body>

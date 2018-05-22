@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface PermissionClient {
 
-    PermissionTicketResponse savePermissions(Permissions permissions) throws Exception;
-    ErrorResponse sendError(Permissions permissions) throws Exception;
-    void x(Permissions permissions, HttpServletRequest req, HttpServletResponse resp) throws Exception;
+    void requestPermissions(Permissions permissions, HttpServletRequest req, HttpServletResponse resp) throws Exception;
 
 }

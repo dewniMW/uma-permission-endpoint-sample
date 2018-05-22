@@ -1,9 +1,6 @@
-<%@ page import="uma.permission.endpoint.sample.model.RequestPermission" %>
 <%@ page import="uma.permission.endpoint.sample.model.PermissionTicketResponse" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Enumeration" %>
 <%@ page import="uma.permission.endpoint.sample.model.ErrorResponse" %>
+<%@ page import="uma.permission.endpoint.sample.client.impl.PermissionClientImpl" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -36,6 +33,7 @@
 
 %>
 <h4>Permission ticket created successfully.</h4>
+<div>Http status code: <%=PermissionClientImpl.httpStatusCode%></div>
 <div>Permission ticket: <%= permissionTicketResponse.getTicket()%></div>
 
 <% } %>
@@ -46,11 +44,12 @@
 
 %>
 <h4>Error in the request.</h4>
+<div>Http status code: <%=PermissionClientImpl.httpStatusCode%></div>
 <div>error: <%= permissionTicketResponse.getError()%></div>
 <div>error_description: <%= permissionTicketResponse.getErrorDescription()%></div>
 <% } %>
 
 
-<a href="AdminHomePage.jsp"><input type="submit" value="Back" name=BackButton></a>
+<a href="index.jsp"><input type="submit" value="Back" name=BackButton></a>
 </body>
 </html>

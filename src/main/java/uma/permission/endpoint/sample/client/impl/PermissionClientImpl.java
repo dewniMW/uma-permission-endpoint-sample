@@ -16,54 +16,32 @@ import javax.ws.rs.core.Response;
 
 public class PermissionClientImpl extends AbstractRestClient implements PermissionClient {
 
+    public static int httpStatusCode;
+
     public PermissionClientImpl(String targetServiceUrl, MultivaluedMap<String, Object> headers) {
-        super(targetServiceUrl,headers);
+
+        super(targetServiceUrl, headers);
     }
 
     @Override
-    public PermissionTicketResponse savePermissions(Permissions permissions) throws Exception {
-        Response response = null;
-        try {
-            Entity<Permissions> entity = Entity.entity(permissions, MediaType.APPLICATION_JSON_TYPE);
-            response = super.post(this.targetServiceUrl, entity);
-            return response.readEntity(PermissionTicketResponse.class);
-        } catch (Exception e) {
-            //e.printStackTrace();
-            throw new Exception(e);
-        } finally {
-            close(response);
-        }
-    }
+    public void requestPermissions(Permissions permissions, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 
-    public void x(Permissions permissions, HttpServletRequest req, HttpServletResponse resp) throws Exception{
         Entity<Permissions> entity = Entity.entity(permissions, MediaType.APPLICATION_JSON_TYPE);
-        Response response  = super.post(this.targetServiceUrl, entity);
-        if(response.getStatus() == 201){
-            req.setAttribute("permissionRequest",response.readEntity(PermissionTicketResponse.class));
+        Response response = super.post(this.targetServiceUrl, entity);
+        httpStatusCode = response.getStatus();
+        if (httpStatusCode == 201) {
+            req.setAttribute("permissionRequest", response.readEntity(PermissionTicketResponse.class));
             RequestDispatcher dispatcher = req.getRequestDispatcher("request-permission.jsp");
             dispatcher.forward(req, resp);
-        } else if (response.getStatus() == 400){
-            req.setAttribute("errorMessage",response.readEntity(ErrorResponse.class));
+        } else if (httpStatusCode == 400) {
+            req.setAttribute("errorMessage", response.readEntity(ErrorResponse.class));
             RequestDispatcher dispatcher = req.getRequestDispatcher("request-permission.jsp");
             dispatcher.forward(req, resp);
-        } else {
+        } /*else if (httpStatusCode == 401){
+            throw new Exception("Invalid/ Expired token.");
+        }*/else {
             throw new Exception("Error");
         }
     }
 
-
-    @Override
-    public ErrorResponse sendError(Permissions permissions) throws Exception {
-        Response response = null;
-        try {
-            Entity<Permissions> entity = Entity.entity(permissions, MediaType.APPLICATION_JSON_TYPE);
-            response = super.post(this.targetServiceUrl, entity);
-            return response.readEntity(ErrorResponse.class);
-        } catch (Exception e) {
-            //e.printStackTrace();
-            throw new Exception(e);
-        } finally {
-            close(response);
-        }
-    }
 }

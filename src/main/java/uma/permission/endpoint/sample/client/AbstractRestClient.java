@@ -11,13 +11,9 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
-/**
- * @author USER
- */
 public class AbstractRestClient {
 
     protected String targetServiceUrl;
@@ -41,31 +37,12 @@ public class AbstractRestClient {
         return target.request();
     }
 
-//    public Response post(final String url, final Entity<?> entity) throws Exception {
-//        Response response = createTarget(url).request().headers(headers).post(entity);
-//        /*if (!isSuccess(response)) {
-//            processException(response);
-//        }*/
-//        return response;
-//    }
-
     public Response post(final String url, final Entity<?> entity) {
         Response response = createTarget(url).request().headers(headers).post(entity);
-        /*if (!isSuccess(response)) {
-            processException(response);
-        }*/
+
         return response;
     }
 
-
-    public Response getJson(final String url) throws Exception {
-
-        Response response = createTarget(url).request().accept(MediaType.APPLICATION_JSON_TYPE).get();
-        if (!isSuccess(response)) {
-            processException(response);
-        }
-        return response;
-    }
 
     /**
      * Check the server response whether success or other failures.
